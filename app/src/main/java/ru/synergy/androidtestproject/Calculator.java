@@ -1,5 +1,6 @@
 package ru.synergy.androidtestproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +26,7 @@ private  static final String LifecycleTag = "LIFECYCLE";
 
         final Button calculate = (Button) findViewById(R.id.calc);
 
+
 /*            //Context training
         TextView textView = new TextView(this); //context данного Activity
         ListAdapter adapter = new SimpleCursorAdapter(getApplicationContext(),);
@@ -36,12 +38,22 @@ private  static final String LifecycleTag = "LIFECYCLE";
         SharePreferences prefs = getApplicationContext().getSharedPreferences("PREFS", MODE_PRIVATE);
         ////*/
 
+        //// Intent - посылка, намерение
+
+
+
+        //
+
+
+
+
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(LogcatTag, "Button have been pushed");
-
                 calculateAnswer();
+                Intent i = new Intent(Calculator.this, MainActivity.class);   // написать письмо, прописывается в любом месте кода
+                startActivity(i); // отправляет письмо, прописывается в месте вызова активности
             }
         });
     }
@@ -85,6 +97,11 @@ private  static final String LifecycleTag = "LIFECYCLE";
         RadioButton multiply = (RadioButton) findViewById(R.id.multiply);
         RadioButton devide = (RadioButton) findViewById(R.id.devide);
 
+        numOne.setText("0");
+        numTwo.setText("0");
+        add.setChecked(true);
+
+
         TextView answer = (TextView) findViewById(R.id.result);
 
         Log.d(LogcatTag, "All views have been founded");
@@ -125,8 +142,8 @@ private  static final String LifecycleTag = "LIFECYCLE";
         answer.setText("The answer is " + solution);
 
 
-        Context contextApp = getApplicationContext();
-        Context context = getBaseContext();
+       /* Context contextApp = getApplicationContext();
+        Context context = getBaseContext();*/
 
 
     }
