@@ -1,7 +1,5 @@
 package ru.synergy.androidtestproject;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,13 +9,17 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 public class Calculator extends AppCompatActivity {
 
 private  static final String LogcatTag = "CALCULATOR_ACTIVITY";
+private  static final String LifecycleTag = "LIFECYCLE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d(LifecycleTag, "I'm oncreate(), and I'm started");
         setContentView(R.layout.activity_calculator);
 
         final Button calculate = (Button) findViewById(R.id.calc);
@@ -30,6 +32,36 @@ private  static final String LogcatTag = "CALCULATOR_ACTIVITY";
                 calculateAnswer();
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(LifecycleTag, "I'm onStart() and I'm started");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(LifecycleTag, "I'm onStop and I'm started");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(LifecycleTag, "I'm onDestroy and I'm started");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(LifecycleTag, "I'm onPause and I'm started");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(LifecycleTag, "I'm onResume and I'm started");
     }
 
     private void calculateAnswer() {
