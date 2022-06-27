@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,17 @@ private  static final String LifecycleTag = "LIFECYCLE";
         setContentView(R.layout.activity_calculator);
 
         final Button calculate = (Button) findViewById(R.id.calc);
+
+/*            //Context training
+        TextView textView = new TextView(this); //context данного Activity
+        ListAdapter adapter = new SimpleCursorAdapter(getApplicationContext(),);
+
+            // доступ из класса Activity  -- наследник Context
+        getSystemService(LAYOUT_INFLATER_SERVICE);
+
+            // Shared prefs доступ с использованием контекста приложения
+        SharePreferences prefs = getApplicationContext().getSharedPreferences("PREFS", MODE_PRIVATE);
+        ////*/
 
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +123,11 @@ private  static final String LifecycleTag = "LIFECYCLE";
 
 
         answer.setText("The answer is " + solution);
+
+
+        Context contextApp = getApplicationContext();
+        Context context = getBaseContext();
+
 
     }
 
