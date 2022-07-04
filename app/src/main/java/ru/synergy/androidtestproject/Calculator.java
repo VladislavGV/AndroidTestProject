@@ -53,7 +53,7 @@ private  static final String LifecycleTag = "LIFECYCLE";
                 Log.d(LogcatTag, "Button have been pushed");
                 calculateAnswer();
                 Intent i = new Intent(Calculator.this, MainActivity.class);   // написать письмо, прописывается в любом месте кода
-                startActivity(i); // отправляет письмо, прописывается в месте вызова активности
+              // startActivity(i); // отправляет письмо, прописывается в месте вызова активности
             }
         });
     }
@@ -97,22 +97,39 @@ private  static final String LifecycleTag = "LIFECYCLE";
         RadioButton multiply = (RadioButton) findViewById(R.id.multiply);
         RadioButton devide = (RadioButton) findViewById(R.id.devide);
 
-        numOne.setText("0");
+ /*       numOne.setText("0");
         numTwo.setText("0");
-        add.setChecked(true);
+        add.setChecked(true);*/
 
 
         TextView answer = (TextView) findViewById(R.id.result);
 
         Log.d(LogcatTag, "All views have been founded");
 
-        float numone = Integer.parseInt(numOne.getText().toString());
-        float numtwo = Integer.parseInt(numTwo.getText().toString());
+      /*  try {
+            int a = 25 / 0;
+        } catch (ArithmeticException e){
+            e.printStackTrace();
+        }*/
+        float numone = 0;
+        float numtwo = 0;
+        String num1 = numOne.getText().toString();
+        String num2 = numTwo.getText().toString();
+        if(!num1.equals("") && num1 != null) {
+        numone = Integer.parseInt(numOne.getText().toString());
+        }
+        if(!num2.equals("") && num2 != null) {
+            numtwo = Integer.parseInt(numTwo.getText().toString());
+        }
+
 
         Log.d(LogcatTag, "Successfully grabbed data from input fields");
         Log.d(LogcatTag, "numone is: " + numone + " ; "+" numtwo is: " + numtwo);
 
         float solution = 0;
+
+
+
 
         if (add.isChecked()) {
             Log.d(LogcatTag, "Operation is add");
@@ -128,10 +145,10 @@ private  static final String LifecycleTag = "LIFECYCLE";
         }
         if (devide.isChecked()) {
             Log.d(LogcatTag, "Operation is devide");
-            if (numtwo == 0) {
+           /* if (numtwo == 0) {
                 Toast.makeText(this, "Number cannot be zero", Toast.LENGTH_SHORT);
                 return;
-            }
+            }*/
             solution = numone / numtwo;
         }
 
