@@ -9,13 +9,27 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int REQ_C = 1;
     EditText et;
     private TextView tv;
+
+    ActivityResultLauncher<Intent> mStartActivityResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    Intent intent = result.getData();
+                    tv.setText(intent.getStringExtra("tv"));
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,10 +90,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
                     i = new Intent(this, ToInActivity.class);
                     String eText = et.getText().toString();
                     i.putExtra("et", eText);
+                    startActivity(i);
                     break;
-          /*      case R.id.button3:
+                case R.id.button3:
                         i = new Intent(this, ComeBackActivity.class);
-                        startActivityForResult(i,REQ_C);*/
+                        mStartActivityResult.launch(i);
             }
         }
 
