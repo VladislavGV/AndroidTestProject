@@ -73,8 +73,12 @@ private  static final String LifecycleTag = "LIFECYCLE";
 
                     //восстановление
                     e.printStackTrace(); //всегда прописывается, чтобы дать понять другим разработчикам, почему здесь выпадает ошибка
-                    Toast.makeText(Calculator.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    // e.printStackTrace(new PrintWriter());
+                     // e.toString();
+                    Toast.makeText(Calculator.this, e.getMessage() + " of class"+ e.getClass(), Toast.LENGTH_LONG).show();
                     dropFields(); // сброс полей
+
+                    // e.getClass();
 
 
                 }
@@ -209,7 +213,7 @@ private  static final String LifecycleTag = "LIFECYCLE";
 
         answer.setText("The answer is " + solution);
 
-        switch( (int) Math.random()*2){
+        switch( (int) (Math.random()*3)) {
             case 0 : throw new ArithmeticException("I am generated arithmetical exception");
             case 1 : throw new IOException("I am generated ioexception");
 
