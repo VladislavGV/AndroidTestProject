@@ -223,6 +223,30 @@ private  static final String LifecycleTag = "LIFECYCLE";
        /* Context contextApp = getApplicationContext();
         Context context = getBaseContext();*/
 
+        /*throwable - класс!!!
+                Exception - наследник
+
+        RunTimeException - очень близки по своей логике к Error.
+        IndexOutOfBoundsException - выход из длины массива, не должно так быть.
+                ArithmeticException - ошибка арифметических вычислений (перезапуск программы)
+        IllegalArgumentException - неправильно переданный параметр(метод, процедура, функция)
+        NumberFormatException - неправильный формат ввода чисел
+
+
+        IOException (input-out Exception) -  стоит всегда обрабатывать.
+        SocketException - не смошли наш порт для получения данных. (нет доступа к интернету, невозможно работать)
+        FileNotFoundException - отсутствие файла по пути запроса
+
+
+
+        Error - ошибки, возникающие в рантайме, не проверяется ошибка, смерть приложения
+        OutOfMemoryError - закончилась памятьб нет памяти, чтобы приложение работалоб нужно думать как уменьшить память.
+                StackOverFlowError - ошибка переполнения int (32 бита),число больше, чем разрядная сетка, невалидное число.
+                LinkageError - ошибка линковки, невозможно бороться разработчикам*/
+
+
+        // FINISHED LESSON 34
+
 
     }
 
