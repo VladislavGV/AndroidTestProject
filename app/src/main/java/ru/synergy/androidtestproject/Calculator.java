@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.IOException;
+
 public class Calculator extends AppCompatActivity {
 
 private  static final String LogcatTag = "CALCULATOR_ACTIVITY";
@@ -51,9 +53,37 @@ private  static final String LifecycleTag = "LIFECYCLE";
             @Override
             public void onClick(View v) {
                 Log.d(LogcatTag, "Button have been pushed");
-                calculateAnswer();
+                try {
+                    calculateAnswer();
+                }
+                /*catch (IOException e){
+                    Toast.makeText(Calculator.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    finish();
+                }
+                catch (ArithmeticException e){
+                    Toast.makeText(Calculator.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    finish();
+                }*/
+                catch (Exception e){
+
+                        // прерывание
+/*                    e.printStackTrace();
+                    Toast.makeText(Calculator.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    finish();*/
+
+                    //восстановление
+                    e.printStackTrace(); //всегда прописывается, чтобы дать понять другим разработчикам, почему здесь выпадает ошибка
+                    // e.printStackTrace(new PrintWriter());
+                     // e.toString();
+                    Toast.makeText(Calculator.this, e.getMessage() + " of class"+ e.getClass(), Toast.LENGTH_LONG).show();
+                    dropFields(); // сброс полей
+
+                    // e.getClass();
+
+
+                }
                 Intent i = new Intent(Calculator.this, MainActivity.class);   // написать письмо, прописывается в любом месте кода
-                startActivity(i); // отправляет письмо, прописывается в месте вызова активности
+              // startActivity(i); // отправляет письмо, прописывается в месте вызова активности
             }
         });
     }
@@ -88,7 +118,26 @@ private  static final String LifecycleTag = "LIFECYCLE";
         Log.d(LifecycleTag, "I'm onResume and I'm started");
     }
 
-    private void calculateAnswer() {
+    private void dropFields() {
+        EditText numOne = (EditText) findViewById(R.id.editTextNumberDecimal);
+        EditText numTwo = (EditText) findViewById(R.id.editTextNumberDecimal2);
+
+        RadioButton add = (RadioButton) findViewById(R.id.add);
+        RadioButton sub = (RadioButton) findViewById(R.id.substract);
+        RadioButton multiply = (RadioButton) findViewById(R.id.multiply);
+        RadioButton devide = (RadioButton) findViewById(R.id.devide);
+
+        numOne.setText("0");
+        numTwo.setText("0");
+        add.setChecked(true);
+
+
+        TextView answer = (TextView) findViewById(R.id.result);
+
+        answer.setText("Now we have problems. Try again later.");
+    }
+
+    private void calculateAnswer() throws ArithmeticException, IOException {
         EditText numOne = (EditText) findViewById(R.id.editTextNumberDecimal);
         EditText numTwo = (EditText) findViewById(R.id.editTextNumberDecimal2);
 
@@ -106,13 +155,36 @@ private  static final String LifecycleTag = "LIFECYCLE";
 
         Log.d(LogcatTag, "All views have been founded");
 
-        float numone = Integer.parseInt(numOne.getText().toString());
-        float numtwo = Integer.parseInt(numTwo.getText().toString());
+        // обработка исключений
+
+ /*       try {
+           // int a = 25 / 0;
+            throw new ArithmeticException("I am generated exception");
+        } catch (ArithmeticException e){
+            Toast.makeText(this,"There is a problem inside the app", Toast.LENGTH_SHORT).show();
+            finish();
+        }*/
+
+
+        float numone = 0;
+        float numtwo = 0;
+        String num1 = numOne.getText().toString();
+        String num2 = numTwo.getText().toString();
+        if(!num1.equals("") && num1 != null) {
+        numone = Integer.parseInt(numOne.getText().toString());
+        }
+        if(!num2.equals("") && num2 != null) {
+            numtwo = Integer.parseInt(numTwo.getText().toString());
+        }
+
 
         Log.d(LogcatTag, "Successfully grabbed data from input fields");
         Log.d(LogcatTag, "numone is: " + numone + " ; "+" numtwo is: " + numtwo);
 
         float solution = 0;
+
+
+
 
         if (add.isChecked()) {
             Log.d(LogcatTag, "Operation is add");
@@ -128,10 +200,10 @@ private  static final String LifecycleTag = "LIFECYCLE";
         }
         if (devide.isChecked()) {
             Log.d(LogcatTag, "Operation is devide");
-            if (numtwo == 0) {
+           /* if (numtwo == 0) {
                 Toast.makeText(this, "Number cannot be zero", Toast.LENGTH_SHORT);
                 return;
-            }
+            }*/
             solution = numone / numtwo;
         }
 
@@ -141,9 +213,39 @@ private  static final String LifecycleTag = "LIFECYCLE";
 
         answer.setText("The answer is " + solution);
 
+        switch( (int) (Math.random()*3)) {
+            case 0 : throw new ArithmeticException("I am generated arithmetical exception");
+            case 1 : throw new IOException("I am generated ioexception");
+
+        }
+
 
        /* Context contextApp = getApplicationContext();
         Context context = getBaseContext();*/
+
+        /*throwable - класс!!!
+                Exception - наследник
+
+        RunTimeException - очень близки по своей логике к Error.
+        IndexOutOfBoundsException - выход из длины массива, не должно так быть.
+                ArithmeticException - ошибка арифметических вычислений (перезапуск программы)
+        IllegalArgumentException - неправильно переданный параметр(метод, процедура, функция)
+        NumberFormatException - неправильный формат ввода чисел
+
+
+        IOException (input-out Exception) -  стоит всегда обрабатывать.
+        SocketException - не смошли наш порт для получения данных. (нет доступа к интернету, невозможно работать)
+        FileNotFoundException - отсутствие файла по пути запроса
+
+
+
+        Error - ошибки, возникающие в рантайме, не проверяется ошибка, смерть приложения
+        OutOfMemoryError - закончилась памятьб нет памяти, чтобы приложение работалоб нужно думать как уменьшить память.
+                StackOverFlowError - ошибка переполнения int (32 бита),число больше, чем разрядная сетка, невалидное число.
+                LinkageError - ошибка линковки, невозможно бороться разработчикам*/
+
+
+        // FINISHED LESSON 34
 
 
     }
